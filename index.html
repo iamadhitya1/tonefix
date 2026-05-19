@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToneFix — Know how your words land</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0c0c0e;
+      --surface:   #141418;
+      --elevated:  #1c1c22;
+      --border:    #26262e;
+      --border-hi: #3a3a46;
+      --text-1:    #eeeef2;
+      --text-2:    #9898a8;
+      --text-3:    #5a5a6a;
+      --accent:    #d4a857;
+      --accent-dim:#8a6c30;
+      --green:     #4caf82;
+      --red:       #e05c5c;
+      --orange:    #e07c40;
+      --blue:      #5b8fd4;
+      --yellow:    #cfc048;
+      --purple:    #9b72d4;
+      --radius:    10px;
+      --radius-lg: 16px;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 12, 14, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .logo-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-1);
+    }
+
+    .logo-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 2px;
+      margin-bottom: 3px;
+      flex-shrink: 0;
+    }
+
+    .tagline {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── API KEY BAR ── */
+    .api-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+    }
+
+    .api-bar label {
+      color: var(--text-3);
+      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .api-key-input {
+      flex: 1;
+      max-width: 380px;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 7px 12px;
+      color: var(--text-1);
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .api-key-input:focus { border-color: var(--border-hi); }
+
+    .api-key-input::placeholder { color: var(--text-3); }
+
+    .api-key-note {
+      color: var(--text-3);
+      font-size: 0.76rem;
+      line-height: 1.4;
+    }
+
+    .api-key-note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .api-key-note a:hover { text-decoration: underline; }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-1);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      color: var(--text-2);
+      max-width: 440px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ── COMPOSE BOX ── */
+    .compose {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .compose:focus-within {
+      border-color: var(--border-hi);
+    }
+
+    .compose-label {
+      padding: 14px 18px 0;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+
+    #message-input {
+      width: 100%;
+      min-height: 200px;
+      background: transparent;
+      border: none;
+      outline: none;
+      resize: vertical;
+      padding: 12px 18px 16px;
+      color: var(--text-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    #message-input::placeholder { color: var(--text-3); }
+
+    .compose-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 12px;
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .char-count {
+      font-size: 0.78rem;
+      color: var(--text-3);
+    }
+
+    /* ── ANALYZE BUTTON ── */
+    #analyze-btn {
+      background: var(--accent);
+      color: #0c0c0e;
+      border: none;
+      border-radius: var(--radius);
+      padding: 11px 28px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, opacity 0.15s;
+      white-space: nowrap;
+    }
+
+    #analyze-btn:hover { background: #e0b86a; }
+    #analyze-btn:active { transform: scale(0.98); }
+    #analyze-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ── LOADING ── */
+    .loading-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 0;
+      gap: 18px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .loading-state.visible { display: flex; }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .loading-text {
+      color: var(--text-2);
+      font-size: 0.88rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── ERROR ── */
+    .error-state {
+      display: none;
+      background: rgba(224, 92, 92, 0.08);
+      border: 1px solid rgba(224, 92, 92, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-top: 28px;
+      gap: 12px;
+      align-items: flex-start;
+      animation: slideUp 0.3s ease;
+    }
+
+    .error-state.visible { display: flex; }
+
+    .error-icon {
+      font-size: 1.1rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .error-body { flex: 1; }
+
+    .error-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+
+    .error-msg {
+      font-size: 0.84rem;
+      color: var(--text-2);
+      font-weight: 300;
+    }
+
+    /* ── RESULTS ── */
+    #results {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    #results.visible { display: flex; }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .results-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+
+    .reset-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.76rem;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .reset-btn:hover { border-color: var(--border-hi); color: var(--text-1); }
+
+    /* ── TONE CARD ── */
+    .tone-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      animation: slideUp 0.35s ease both;
+    }
+
+    .tone-card:nth-child(2) { animation-delay: 0.05s; }
+    .tone-card:nth-child(3) { animation-delay: 0.1s; }
+    .tone-card:nth-child(4) { animation-delay: 0.15s; }
+    .tone-card:nth-child(5) { animation-delay: 0.2s; }
+
+    .tone-card.fine {
+      border-color: rgba(76, 175, 130, 0.25);
+      background: rgba(76, 175, 130, 0.05);
+    }
+
+    .tone-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+    }
+
+    .tone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* badge colours */
+    .badge-passive   { background: rgba(224,124,64,.15); color: var(--orange); }
+    .badge-passive   .badge-dot { background: var(--orange); }
+
+    .badge-rude      { background: rgba(224,92,92,.15);  color: var(--red); }
+    .badge-rude      .badge-dot { background: var(--red); }
+
+    .badge-formal    { background: rgba(91,143,212,.15); color: var(--blue); }
+    .badge-formal    .badge-dot { background: var(--blue); }
+
+    .badge-unclear   { background: rgba(207,192,72,.15); color: var(--yellow); }
+    .badge-unclear   .badge-dot { background: var(--yellow); }
+
+    .badge-needy     { background: rgba(155,114,212,.15);color: var(--purple); }
+    .badge-needy     .badge-dot { background: var(--purple); }
+
+    .badge-fine      { background: rgba(76,175,130,.15); color: var(--green); }
+    .badge-fine      .badge-dot { background: var(--green); }
+
+    .tone-reason {
+      font-size: 0.86rem;
+      color: var(--text-2);
+      font-weight: 300;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    /* ── REWRITE SECTION ── */
+    .rewrite-section {
+      border-top: 1px solid var(--border);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .rewrite-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+
+    .rewrite-text {
+      font-size: 0.92rem;
+      color: var(--text-1);
+      line-height: 1.65;
+      font-weight: 300;
+      white-space: pre-wrap;
+    }
+
+    .rewrite-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 7px 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: var(--border);
+      color: var(--text-1);
+      border-color: var(--border-hi);
+    }
+
+    .copy-btn.copied {
+      color: var(--green);
+      border-color: rgba(76,175,130,.4);
+      background: rgba(76,175,130,.08);
+    }
+
+    .copy-btn svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ── FINE CARD ── */
+    .fine-card-body {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .fine-icon {
+      font-size: 1.5rem;
+    }
+
+    .fine-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 3px;
+    }
+
+    .fine-text p {
+      font-size: 0.86rem;
+      color: var(--text-2);
+      font-weight: 300;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.76rem;
+      color: var(--text-3);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-hi); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 16px 18px; }
+      .api-bar { padding: 10px 18px; flex-wrap: wrap; }
+      main { padding: 32px 16px 60px; }
+      .compose-footer { flex-direction: column; align-items: stretch; }
+      #analyze-btn { width: 100%; text-align: center; }
+      .tone-header { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <span class="logo-word">ToneFix</span>
+      <span class="logo-dot"></span>
+    </div>
+    <span class="tagline">Know how your words land</span>
+  </header>
+
+  <!-- API KEY BAR -->
+  <div class="api-bar">
+    <label for="api-key">Anthropic API Key</label>
+    <input
+      type="password"
+      id="api-key"
+      class="api-key-input"
+      placeholder="sk-ant-api…"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <span class="api-key-note">
+      Your key stays in this tab — never sent anywhere except Anthropic.
+      <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Get a key ↗</a>
+    </span>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <div class="hero">
+      <h1>Paste it. See how it <em>actually</em> sounds.</h1>
+      <p>ToneFix reads your message like a stranger would — and shows you exactly what lands wrong, and how to fix it.</p>
+    </div>
+
+    <!-- COMPOSE -->
+    <div class="compose">
+      <div class="compose-label">Your message</div>
+      <textarea
+        id="message-input"
+        placeholder="Paste an email, Slack message, WhatsApp text, anything…"
+        spellcheck="true"
+      ></textarea>
+      <div class="compose-footer">
+        <span class="char-count" id="char-count">0 characters</span>
+        <button id="analyze-btn" onclick="analyze()">Analyze tone →</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading-state" id="loading">
+      <div class="spinner"></div>
+      <span class="loading-text" id="loading-text">Reading between the lines…</span>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-state" id="error-state">
+      <div class="error-icon">⚠</div>
+      <div class="error-body">
+        <div class="error-title">Something went wrong</div>
+        <div class="error-msg" id="error-msg">An unexpected error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results">
+      <div class="results-header">
+        <span class="results-label">Tone analysis</span>
+        <button class="reset-btn" onclick="reset()">Clear ↺</button>
+      </div>
+      <div id="results-list"></div>
+    </div>
+  </main>
+
+  <footer>
+    Built with <span>Claude Sonnet</span> · Your messages are never stored or logged
+  </footer>
+
+  <script>
+    // ── State ──────────────────────────────────────────────
+    const loadingMessages = [
+      "Reading between the lines…",
+      "Checking the subtext…",
+      "Asking how this lands…",
+      "Spotting the vibe…",
+    ];
+
+    // ── Char counter ───────────────────────────────────────
+    const textarea = document.getElementById('message-input');
+    const charCount = document.getElementById('char-count');
+    textarea.addEventListener('input', () => {
+      const n = textarea.value.length;
+      charCount.textContent = n === 1 ? '1 character' : `${n.toLocaleString()} characters`;
+    });
+
+    // ── Tone → badge class mapping ─────────────────────────
+    function badgeClass(label) {
+      const l = label.toLowerCase();
+      if (l.includes('passive'))  return 'badge-passive';
+      if (l.includes('rude') || l.includes('blunt')) return 'badge-rude';
+      if (l.includes('formal') || l.includes('stiff')) return 'badge-formal';
+      if (l.includes('unclear') || l.includes('confus')) return 'badge-unclear';
+      if (l.includes('needy') || l.includes('desperat')) return 'badge-needy';
+      if (l.includes('fine') || l.includes('no issue')) return 'badge-fine';
+      return 'badge-unclear';
+    }
+
+    // ── SVG icons ──────────────────────────────────────────
+    const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+    const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+    // ── Copy helper ────────────────────────────────────────
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.innerHTML = checkIcon + ' Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = copyIcon + ' Copy rewrite';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.innerHTML = checkIcon + ' Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = copyIcon + ' Copy rewrite';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // ── Render results ─────────────────────────────────────
+    function renderResults(tones) {
+      const list = document.getElementById('results-list');
+      list.innerHTML = '';
+
+      tones.forEach((tone, i) => {
+        const isFine = tone.label.toLowerCase().includes('fine') || tone.label.toLowerCase().includes('no issue');
+        const card = document.createElement('div');
+        card.className = 'tone-card' + (isFine ? ' fine' : '');
+        card.style.animationDelay = (i * 0.06) + 's';
+
+        if (isFine) {
+          card.innerHTML = `
+            <div class="fine-card-body">
+              <div class="fine-icon">✓</div>
+              <div class="fine-text">
+                <h3>Looks good to send</h3>
+                <p>${escapeHtml(tone.reason || 'Your message reads as professional, warm, and clear.')}</p>
+              </div>
+            </div>`;
+        } else {
+          const bc = badgeClass(tone.label);
+          const rewriteId = 'rewrite-' + i;
+          card.innerHTML = `
+            <div class="tone-header">
+              <div class="tone-badge ${bc}">
+                <span class="badge-dot"></span>
+                ${escapeHtml(tone.label)}
+              </div>
+              <div class="tone-reason">${escapeHtml(tone.reason || '')}</div>
+            </div>
+            <div class="rewrite-section">
+              <div class="rewrite-label">Suggested rewrite</div>
+              <div class="rewrite-text" id="${rewriteId}">${escapeHtml(tone.rewrite || '')}</div>
+              <div class="rewrite-footer">
+                <button class="copy-btn" onclick="copyText(document.getElementById('${rewriteId}').textContent, this)">
+                  ${copyIcon} Copy rewrite
+                </button>
+              </div>
+            </div>`;
+        }
+
+        list.appendChild(card);
+      });
+
+      document.getElementById('results').classList.add('visible');
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // ── Show / hide helpers ────────────────────────────────
+    function showLoading(show) {
+      const el = document.getElementById('loading');
+      const txt = document.getElementById('loading-text');
+      if (show) {
+        txt.textContent = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    }
+
+    function showError(msg) {
+      document.getElementById('error-msg').textContent = msg;
+      document.getElementById('error-state').classList.add('visible');
+    }
+
+    function hideError() {
+      document.getElementById('error-state').classList.remove('visible');
+    }
+
+    function reset() {
+      document.getElementById('results').classList.remove('visible');
+      document.getElementById('results-list').innerHTML = '';
+      hideError();
+      textarea.focus();
+    }
+
+    // ── Main analyze function ──────────────────────────────
+    async function analyze() {
+      const apiKey = document.getElementById('api-key').value.trim();
+      const message = textarea.value.trim();
+
+      // Validation
+      if (!apiKey) {
+        showError('Please enter your Anthropic API key in the bar at the top. You can get one free at console.anthropic.com.');
+        return;
+      }
+      if (!message) {
+        showError('Please paste a message to analyze first.');
+        return;
+      }
+      if (message.length > 8000) {
+        showError('Message is too long. Please trim it to under 8,000 characters.');
+        return;
+      }
+
+      // Reset UI
+      hideError();
+      document.getElementById('results').classList.remove('visible');
+      document.getElementById('results-list').innerHTML = '';
+      showLoading(true);
+      document.getElementById('analyze-btn').disabled = true;
+
+      const systemPrompt = `You are a communication tone analyst. Your job is to analyze the tone of messages and help people communicate more effectively.
+
+Analyze the given message and identify which tone categories apply. Return ONLY valid JSON — no markdown, no explanation outside the JSON.
+
+Tone categories (use ONLY these exact labels):
+- "Passive-aggressive"
+- "Rude or blunt"
+- "Overly formal"
+- "Unclear or confusing"
+- "Needy or desperate"
+- "Fine — no issues"
+
+Rules:
+1. If the message is genuinely fine, return only "Fine — no issues" with a brief reason why it works.
+2. If there are issues, do NOT include "Fine — no issues" — only return the problem tones.
+3. For each problem tone: provide a 1-sentence reason (specific, not generic) and a complete rewrite of the full message that sounds professional, warm, and clear.
+4. The rewrite should be a full replacement of the original message — not a fragment.
+5. Be precise. Don't flag issues that aren't clearly there.
+
+Response format:
+{
+  "tones": [
+    {
+      "label": "Passive-aggressive",
+      "reason": "One specific sentence explaining exactly why this reads as passive-aggressive.",
+      "rewrite": "The complete rewritten message here."
+    }
+  ]
+}`;
+
+      const userPrompt = `Analyze this message:\n\n${message}`;
+
+      try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true',
+          },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 2048,
+            system: systemPrompt,
+            messages: [{ role: 'user', content: userPrompt }],
+          }),
+        });
+
+        if (!response.ok) {
+          const errBody = await response.json().catch(() => ({}));
+          const errMsg = errBody?.error?.message || `API error ${response.status}`;
+
+          if (response.status === 401) {
+            throw new Error('Invalid API key. Double-check it at console.anthropic.com/settings/keys.');
+          } else if (response.status === 429) {
+            throw new Error('Rate limit hit. Wait a moment and try again.');
+          } else if (response.status === 400) {
+            throw new Error(`Bad request: ${errMsg}`);
+          } else {
+            throw new Error(`Anthropic API returned an error: ${errMsg}`);
+          }
+        }
+
+        const data = await response.json();
+        const raw = data?.content?.[0]?.text;
+
+        if (!raw) throw new Error('Empty response from API. Please try again.');
+
+        // Strip markdown code fences if Claude wraps the JSON
+        const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+
+        let parsed;
+        try {
+          parsed = JSON.parse(cleaned);
+        } catch {
+          // Try to extract JSON substring
+          const match = cleaned.match(/\{[\s\S]*\}/);
+          if (match) {
+            parsed = JSON.parse(match[0]);
+          } else {
+            throw new Error('Could not parse response. Please try again.');
+          }
+        }
+
+        if (!parsed?.tones || !Array.isArray(parsed.tones) || parsed.tones.length === 0) {
+          throw new Error('Unexpected response format. Please try again.');
+        }
+
+        renderResults(parsed.tones);
+
+      } catch (err) {
+        let msg = err.message || 'An unexpected error occurred. Please try again.';
+        if (err instanceof TypeError && err.message.includes('fetch')) {
+          msg = 'Network error — check your internet connection and try again.';
+        }
+        showError(msg);
+      } finally {
+        showLoading(false);
+        document.getElementById('analyze-btn').disabled = false;
+      }
+    }
+
+    // ── Allow Enter key shortcut (Ctrl/Cmd + Enter) ────────
+    textarea.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        analyze();
+      }
+    });
+  </script>
+</body>
+</html>
