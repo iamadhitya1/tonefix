@@ -43,6 +43,190 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ── PAGE LOADING ── */
+    .page-loading {
+      position: fixed; inset: 0; z-index: 500;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .page-loading.hidden { display: none; }
+
+    /* ── AUTH OVERLAY ── */
+    .auth-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(12,12,14,0.97);
+      backdrop-filter: blur(20px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .auth-overlay.hidden { display: none; }
+
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 2.5rem 2rem;
+      width: 100%; max-width: 400px;
+      position: relative; overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(212,168,87,0.2));
+    }
+
+    .auth-logo {
+      display: flex; align-items: baseline; gap: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem; font-weight: 600; letter-spacing: -0.01em;
+      margin-bottom: 0.4rem; color: var(--text-1);
+    }
+
+    .auth-sub {
+      font-size: 0.85rem; color: var(--text-2);
+      font-weight: 300; margin-bottom: 1.5rem; line-height: 1.5;
+    }
+
+    .auth-features {
+      list-style: none; margin-bottom: 1.75rem;
+      display: flex; flex-direction: column; gap: 0.55rem;
+    }
+
+    .auth-features li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 0.83rem; color: var(--text-2); font-weight: 300;
+    }
+
+    .auth-features li .af-check {
+      color: var(--accent); font-weight: 700; flex-shrink: 0;
+    }
+
+    .auth-sign-in-btn {
+      width: 100%; padding: 13px;
+      background: var(--accent); color: #0c0c0e;
+      border: none; border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .auth-sign-in-btn:hover { background: #e0b86a; }
+
+    .auth-fine-print {
+      font-size: 0.7rem; color: var(--text-3);
+      text-align: center; margin-top: 0.75rem;
+    }
+
+    /* ── PRICING MODAL ── */
+    .pricing-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.2s ease;
+    }
+    .pricing-overlay.hidden { display: none; }
+
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 2rem;
+      width: 100%; max-width: 420px;
+      position: relative; overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), rgba(212,168,87,0.2));
+    }
+
+    .pricing-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none;
+      color: var(--text-2); cursor: pointer;
+      font-size: 1.2rem; line-height: 1; padding: 2px;
+    }
+    .pricing-close:hover { color: var(--text-1); }
+
+    .pricing-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem; font-weight: 600;
+      margin-bottom: 0.25rem; color: var(--text-1);
+    }
+
+    .pricing-sub { font-size: 0.8rem; color: var(--text-2); font-weight: 300; margin-bottom: 1.4rem; }
+
+    .pricing-features {
+      display: flex; flex-direction: column; gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-feature { display: flex; gap: 10px; align-items: flex-start; }
+
+    .pricing-feature-check {
+      color: var(--accent); font-weight: 700; font-size: 0.82rem;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .pricing-feature-title { font-size: 0.84rem; font-weight: 600; color: var(--text-1); }
+    .pricing-feature-desc  { font-size: 0.76rem; color: var(--text-2); font-weight: 300; }
+
+    .plan-toggle {
+      display: flex; gap: 6px;
+      background: var(--elevated); border-radius: 10px;
+      padding: 4px; margin-bottom: 1rem;
+    }
+
+    .plan-btn {
+      flex: 1; padding: 8px 0;
+      border: none; border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; background: transparent; color: var(--text-2);
+      transition: all 0.15s;
+    }
+    .plan-btn.active { background: var(--accent); color: #0c0c0e; }
+
+    .plan-save-badge {
+      margin-left: 5px; font-size: 0.65rem;
+      background: rgba(12,12,14,0.3);
+      padding: 1px 5px; border-radius: 99px;
+    }
+
+    .checkout-btn {
+      width: 100%; padding: 12px;
+      background: var(--accent); color: #0c0c0e;
+      border: none; border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(212,168,87,0.25);
+      transition: all 0.15s;
+    }
+    .checkout-btn:hover { background: #e0b86a; }
+    .checkout-btn:disabled {
+      background: var(--elevated); color: var(--text-2);
+      box-shadow: none; cursor: not-allowed;
+    }
+
+    .pricing-error {
+      font-size: 0.75rem; color: var(--red);
+      text-align: center; margin-top: 0.5rem; min-height: 1.2em;
+    }
+
+    .pricing-fine-print {
+      font-size: 0.7rem; color: var(--text-3);
+      text-align: center; margin-top: 0.6rem;
+    }
+
     /* ── HEADER ── */
     header {
       border-bottom: 1px solid var(--border);
@@ -82,95 +266,90 @@
       flex-shrink: 0;
     }
 
-    .tagline {
-      font-size: 0.78rem;
-      color: var(--text-3);
-      font-weight: 400;
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .free-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 168, 87, 0.3);
+      color: var(--accent);
+      background: rgba(212, 168, 87, 0.06);
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
-    /* ── API KEY BAR ── */
-    .api-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 32px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.82rem;
-      flex-wrap: wrap;
-    }
-
-    .api-bar label {
-      color: var(--text-3);
-      white-space: nowrap;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── PROVIDER TOGGLE ── */
-    .provider-toggle {
-      display: flex;
-      background: var(--elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 3px;
-      gap: 2px;
-    }
-
-    .provider-btn {
-      background: none;
-      border: none;
-      border-radius: 7px;
-      padding: 5px 13px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-3);
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-      white-space: nowrap;
-    }
-
-    .provider-btn.active {
-      background: var(--accent);
-      color: #0c0c0e;
-    }
-
-    .provider-btn:not(.active):hover {
-      color: var(--text-1);
-    }
-
-    .api-key-input {
-      flex: 1;
-      max-width: 360px;
-      background: var(--elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 7px 12px;
-      color: var(--text-1);
-      font-family: 'Space Grotesk', monospace;
-      font-size: 0.82rem;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .api-key-input:focus { border-color: var(--border-hi); }
-    .api-key-input::placeholder { color: var(--text-3); }
-
-    .api-key-note {
-      color: var(--text-3);
-      font-size: 0.76rem;
-      line-height: 1.4;
-    }
-
-    .api-key-note a {
+    .pro-badge {
+      font-size: 0.72rem; font-weight: 700;
+      padding: 4px 11px; border-radius: 999px;
+      border: 1px solid rgba(212,168,87,0.5);
       color: var(--accent);
-      text-decoration: none;
+      background: rgba(212,168,87,0.1);
+      letter-spacing: 0.04em;
     }
 
-    .api-key-note a:hover { text-decoration: underline; }
+    .upgrade-header-btn {
+      font-size: 0.75rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 8px;
+      border: 1px solid rgba(212,168,87,0.3);
+      background: rgba(212,168,87,0.07);
+      color: var(--accent); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .upgrade-header-btn:hover { background: rgba(212,168,87,0.15); }
+
+    .user-btn-wrap { position: relative; }
+
+    .user-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--elevated); border: 1px solid var(--border-hi);
+      cursor: pointer; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0; transition: border-color 0.15s;
+    }
+    .user-btn:hover { border-color: var(--accent-dim); }
+
+    .user-avatar { width: 100%; height: 100%; object-fit: cover; }
+
+    .user-initials {
+      font-size: 0.75rem; font-weight: 600; color: var(--accent);
+    }
+
+    .user-menu {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--elevated); border: 1px solid var(--border-hi);
+      border-radius: 10px; padding: 6px;
+      min-width: 190px;
+      display: none; z-index: 200;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+
+    .user-menu.visible { display: block; }
+
+    .user-menu-email {
+      font-size: 0.74rem; color: var(--text-2);
+      padding: 6px 10px 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+      white-space: nowrap; overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-menu-item {
+      display: block; width: 100%;
+      background: none; border: none; text-align: left;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; color: var(--text-2);
+      padding: 7px 10px; border-radius: 6px;
+      transition: background 0.1s, color 0.1s;
+    }
+    .user-menu-item:hover { background: var(--border); color: var(--text-1); }
 
     /* ── MAIN LAYOUT ── */
     main {
@@ -216,9 +395,7 @@
       transition: border-color 0.2s;
     }
 
-    .compose:focus-within {
-      border-color: var(--border-hi);
-    }
+    .compose:focus-within { border-color: var(--border-hi); }
 
     .compose-label {
       padding: 14px 18px 0;
@@ -246,6 +423,43 @@
 
     #message-input::placeholder { color: var(--text-3); }
 
+    /* ── AUDIENCE ROW (Pro only) ── */
+    .audience-row {
+      border-top: 1px solid var(--border);
+      padding: 10px 14px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .audience-label {
+      font-size: 0.74rem; color: var(--text-3);
+      font-weight: 500; white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    .audience-select {
+      flex: 1;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: var(--text-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      padding: 6px 10px;
+      cursor: pointer; outline: none;
+      transition: border-color 0.15s;
+    }
+    .audience-select:focus { border-color: var(--border-hi); }
+    .audience-select option { background: #1c1c22; }
+
+    .audience-pro-tag {
+      font-size: 0.65rem; color: var(--accent);
+      font-weight: 700; letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    /* ── COMPOSE FOOTER ── */
     .compose-footer {
       display: flex;
       align-items: center;
@@ -255,10 +469,33 @@
       gap: 12px;
     }
 
+    .compose-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
     .char-count {
       font-size: 0.78rem;
       color: var(--text-3);
     }
+
+    .char-count.over { color: var(--red); }
+
+    .free-nudge {
+      font-size: 0.75rem; color: var(--text-3);
+      display: none; align-items: center; gap: 4px;
+    }
+
+    .nudge-btn {
+      background: none; border: none; padding: 0;
+      color: var(--accent); font-size: 0.75rem;
+      font-family: 'Space Grotesk', sans-serif;
+      cursor: pointer; font-weight: 500;
+    }
+    .nudge-btn:hover { text-decoration: underline; }
 
     /* ── ANALYZE BUTTON ── */
     #analyze-btn {
@@ -326,26 +563,10 @@
 
     .error-state.visible { display: flex; }
 
-    .error-icon {
-      font-size: 1.1rem;
-      margin-top: 1px;
-      flex-shrink: 0;
-    }
-
+    .error-icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
     .error-body { flex: 1; }
-
-    .error-title {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--red);
-      margin-bottom: 4px;
-    }
-
-    .error-msg {
-      font-size: 0.84rem;
-      color: var(--text-2);
-      font-weight: 300;
-    }
+    .error-title { font-weight: 600; font-size: 0.9rem; color: var(--red); margin-bottom: 4px; }
+    .error-msg { font-size: 0.84rem; color: var(--text-2); font-weight: 300; }
 
     /* ── RESULTS ── */
     #results {
@@ -405,12 +626,7 @@
       background: rgba(76, 175, 130, 0.05);
     }
 
-    .tone-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
-    }
+    .tone-header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; }
 
     .tone-badge {
       display: inline-flex;
@@ -424,39 +640,23 @@
       white-space: nowrap;
     }
 
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
 
-    .badge-passive   { background: rgba(224,124,64,.15); color: var(--orange); }
-    .badge-passive   .badge-dot { background: var(--orange); }
+    .badge-passive  { background: rgba(224,124,64,.15); color: var(--orange); }
+    .badge-passive  .badge-dot { background: var(--orange); }
+    .badge-rude     { background: rgba(224,92,92,.15);  color: var(--red); }
+    .badge-rude     .badge-dot { background: var(--red); }
+    .badge-formal   { background: rgba(91,143,212,.15); color: var(--blue); }
+    .badge-formal   .badge-dot { background: var(--blue); }
+    .badge-unclear  { background: rgba(207,192,72,.15); color: var(--yellow); }
+    .badge-unclear  .badge-dot { background: var(--yellow); }
+    .badge-needy    { background: rgba(155,114,212,.15);color: var(--purple); }
+    .badge-needy    .badge-dot { background: var(--purple); }
+    .badge-fine     { background: rgba(76,175,130,.15); color: var(--green); }
+    .badge-fine     .badge-dot { background: var(--green); }
 
-    .badge-rude      { background: rgba(224,92,92,.15);  color: var(--red); }
-    .badge-rude      .badge-dot { background: var(--red); }
+    .tone-reason { font-size: 0.86rem; color: var(--text-2); font-weight: 300; line-height: 1.5; flex: 1; }
 
-    .badge-formal    { background: rgba(91,143,212,.15); color: var(--blue); }
-    .badge-formal    .badge-dot { background: var(--blue); }
-
-    .badge-unclear   { background: rgba(207,192,72,.15); color: var(--yellow); }
-    .badge-unclear   .badge-dot { background: var(--yellow); }
-
-    .badge-needy     { background: rgba(155,114,212,.15);color: var(--purple); }
-    .badge-needy     .badge-dot { background: var(--purple); }
-
-    .badge-fine      { background: rgba(76,175,130,.15); color: var(--green); }
-    .badge-fine      .badge-dot { background: var(--green); }
-
-    .tone-reason {
-      font-size: 0.86rem;
-      color: var(--text-2);
-      font-weight: 300;
-      line-height: 1.5;
-      flex: 1;
-    }
-
-    /* ── REWRITE SECTION ── */
     .rewrite-section {
       border-top: 1px solid var(--border);
       padding: 16px 20px;
@@ -473,18 +673,8 @@
       font-weight: 500;
     }
 
-    .rewrite-text {
-      font-size: 0.92rem;
-      color: var(--text-1);
-      line-height: 1.65;
-      font-weight: 300;
-      white-space: pre-wrap;
-    }
-
-    .rewrite-footer {
-      display: flex;
-      justify-content: flex-end;
-    }
+    .rewrite-text { font-size: 0.92rem; color: var(--text-1); line-height: 1.65; font-weight: 300; white-space: pre-wrap; }
+    .rewrite-footer { display: flex; justify-content: flex-end; }
 
     .copy-btn {
       display: flex;
@@ -502,58 +692,18 @@
       transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .copy-btn:hover {
-      background: var(--border);
-      color: var(--text-1);
-      border-color: var(--border-hi);
-    }
+    .copy-btn:hover { background: var(--border); color: var(--text-1); border-color: var(--border-hi); }
+    .copy-btn.copied { color: var(--green); border-color: rgba(76,175,130,.4); background: rgba(76,175,130,.08); }
+    .copy-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-    .copy-btn.copied {
-      color: var(--green);
-      border-color: rgba(76,175,130,.4);
-      background: rgba(76,175,130,.08);
-    }
-
-    .copy-btn svg {
-      width: 13px;
-      height: 13px;
-      flex-shrink: 0;
-    }
-
-    /* ── FINE CARD ── */
-    .fine-card-body {
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
+    .fine-card-body { padding: 20px; display: flex; align-items: center; gap: 16px; }
     .fine-icon { font-size: 1.5rem; }
-
-    .fine-text h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--green);
-      margin-bottom: 3px;
-    }
-
-    .fine-text p {
-      font-size: 0.86rem;
-      color: var(--text-2);
-      font-weight: 300;
-    }
+    .fine-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--green); margin-bottom: 3px; }
+    .fine-text p { font-size: 0.86rem; color: var(--text-2); font-weight: 300; }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ── FOOTER ── */
     footer {
@@ -566,6 +716,8 @@
     }
 
     footer span { color: var(--accent); }
+    footer a { color: var(--text-3); text-decoration: none; }
+    footer a:hover { color: var(--text-2); }
 
     /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 6px; }
@@ -576,11 +728,11 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       header { padding: 16px 18px; }
-      .api-bar { padding: 10px 18px; }
       main { padding: 32px 16px 60px; }
       .compose-footer { flex-direction: column; align-items: stretch; }
       #analyze-btn { width: 100%; text-align: center; }
       .tone-header { flex-wrap: wrap; }
+      .audience-row { flex-wrap: wrap; }
     }
   </style>
 
@@ -592,8 +744,96 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "wvykc4ec3e");
   </script>
+
+  <!-- Razorpay -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <!-- ClerkJS (async — JS polls until ready) -->
+  <script
+    async
+    crossorigin="anonymous"
+    data-clerk-publishable-key="pk_test_cHJvdWQtbWFybW9zZXQtNC5jbGVyay5hY2NvdW50cy5kZXYk"
+    src="https://proud-marmot-4.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+  ></script>
 </head>
 <body>
+
+  <!-- PAGE LOADING SPINNER -->
+  <div class="page-loading" id="page-loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- AUTH OVERLAY -->
+  <div class="auth-overlay hidden" id="auth-overlay">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <span class="logo-word">ToneFix</span>
+        <span class="logo-dot"></span>
+      </div>
+      <p class="auth-headline">Know how your words land.</p>
+      <p class="auth-sub">Sign in to analyze your messages and fix the tone before you hit send.</p>
+      <ul class="auth-features">
+        <li><span class="af-check">✓</span> Tone analysis for emails, Slack, WhatsApp — anything</li>
+        <li><span class="af-check">✓</span> 6 tone flags: passive-aggressive, rude, unclear, and more</li>
+        <li><span class="af-check">✓</span> Full rewrites that sound professional and warm</li>
+        <li><span class="af-check">✓</span> Powered by Groq · Llama 3.3 — blazing fast</li>
+      </ul>
+      <button class="auth-sign-in-btn" onclick="signIn()">Sign in to continue →</button>
+      <p class="auth-fine-print">Free to use · No credit card required</p>
+    </div>
+  </div>
+
+  <!-- PRICING MODAL -->
+  <div class="pricing-overlay hidden" id="pricing-modal" onclick="handlePricingBackdrop(event)">
+    <div class="pricing-card">
+      <button class="pricing-close" onclick="hidePricing()">✕</button>
+
+      <p class="pricing-title">ToneFix <em style="font-style:italic;color:var(--accent)">Pro</em></p>
+      <p class="pricing-sub">Longer messages, smarter rewrites, audience-aware tone.</p>
+
+      <div class="pricing-features">
+        <div class="pricing-feature">
+          <span class="pricing-feature-check">✓</span>
+          <div>
+            <div class="pricing-feature-title">8,000 character limit</div>
+            <div class="pricing-feature-desc">Analyze full emails and long threads — free tier is 1,000 chars</div>
+          </div>
+        </div>
+        <div class="pricing-feature">
+          <span class="pricing-feature-check">✓</span>
+          <div>
+            <div class="pricing-feature-title">Audience-aware rewrites</div>
+            <div class="pricing-feature-desc">Tell ToneFix who you're writing to — boss, client, recruiter — for tailored suggestions</div>
+          </div>
+        </div>
+        <div class="pricing-feature">
+          <span class="pricing-feature-check">✓</span>
+          <div>
+            <div class="pricing-feature-title">Unlimited analyses</div>
+            <div class="pricing-feature-desc">No daily caps, no rate limits — fix as many messages as you need</div>
+          </div>
+        </div>
+        <div class="pricing-feature">
+          <span class="pricing-feature-check">✓</span>
+          <div>
+            <div class="pricing-feature-title">No API key needed</div>
+            <div class="pricing-feature-desc">Everything runs on our servers, powered by Groq · Llama 3.3</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="plan-toggle">
+        <button class="plan-btn active" data-plan="monthly" onclick="selectPlan('monthly')">₹199 / month</button>
+        <button class="plan-btn" data-plan="yearly" onclick="selectPlan('yearly')">
+          ₹1,499 / year<span class="plan-save-badge">Save 37%</span>
+        </button>
+      </div>
+
+      <button class="checkout-btn" id="checkout-btn" onclick="handleCheckout()">Upgrade to Pro →</button>
+      <p class="pricing-error" id="pricing-error"></p>
+      <p class="pricing-fine-print">7-day money-back guarantee · Cancel anytime · support@rewritelabs.in</p>
+    </div>
+  </div>
 
   <!-- HEADER -->
   <header>
@@ -601,30 +841,10 @@
       <span class="logo-word">ToneFix</span>
       <span class="logo-dot"></span>
     </div>
-    <span class="tagline">Know how your words land</span>
-  </header>
-
-  <!-- API KEY BAR -->
-  <div class="api-bar">
-    <label>AI Provider</label>
-    <div class="provider-toggle">
-      <button class="provider-btn active" onclick="setProvider('groq')" id="btn-groq">Groq</button>
-      <button class="provider-btn" onclick="setProvider('gemini')" id="btn-gemini">Gemini</button>
+    <div class="header-right" id="header-right">
+      <span class="free-badge">Free</span>
     </div>
-    <label for="api-key" id="api-key-label">API Key</label>
-    <input
-      type="password"
-      id="api-key"
-      class="api-key-input"
-      placeholder="gsk_…"
-      autocomplete="off"
-      spellcheck="false"
-    />
-    <span class="api-key-note">
-      Free key at <a id="api-key-link" href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com ↗</a>
-      · Your key stays in this tab only
-    </span>
-  </div>
+  </header>
 
   <!-- MAIN -->
   <main>
@@ -641,8 +861,28 @@
         placeholder="Paste an email, Slack message, WhatsApp text, anything…"
         spellcheck="true"
       ></textarea>
+
+      <!-- Pro: audience-aware rewrites -->
+      <div class="audience-row" id="audience-row">
+        <span class="audience-label">Writing to</span>
+        <select id="audience-select" class="audience-select">
+          <option value="">Anyone (no preference)</option>
+          <option value="my manager or boss">My manager / boss</option>
+          <option value="a client or customer">A client / customer</option>
+          <option value="a colleague or teammate">A colleague / teammate</option>
+          <option value="HR or a recruiter">HR / recruiter</option>
+          <option value="a friend or peer">A friend / peer</option>
+        </select>
+        <span class="audience-pro-tag">✦ PRO</span>
+      </div>
+
       <div class="compose-footer">
-        <span class="char-count" id="char-count">0 characters</span>
+        <div class="compose-footer-left">
+          <span class="char-count" id="char-count">0 characters</span>
+          <span class="free-nudge" id="free-nudge">
+            · Free: 1,000 chars ·&nbsp;<button class="nudge-btn" onclick="showPricing()">Upgrade for 8k ↗</button>
+          </span>
+        </div>
         <button id="analyze-btn" onclick="analyze()">Analyze tone →</button>
       </div>
     </div>
@@ -673,54 +913,25 @@
   </main>
 
   <footer>
-    Powered by <span id="footer-provider">Groq (Llama 3.3)</span> · Your messages are never stored or logged
+    Powered by <span>Groq · Llama 3.3</span> · Your messages are never stored or logged ·
+    <a href="/legal.html">Privacy · Terms · Refund</a>
   </footer>
 
   <script>
-    // ── Provider state ─────────────────────────────────────
-    let currentProvider = 'groq';
+    // ── Constants ──────────────────────────────────────────
+    const CLERK_PUBLISHABLE_KEY = 'pk_test_cHJvdWQtbWFybW9zZXQtNC5jbGVyay5hY2NvdW50cy5kZXYk';
+    const RAZORPAY_KEY          = 'rzp_live_Su2jLoq41gHXd0';
+    const MONTHLY_PLAN_ID       = 'plan_SupCT5qcXhQSnv';
+    const YEARLY_PLAN_ID        = 'plan_SupD0xuWW0Vlue';
+    const FREE_CHAR_LIMIT       = 1000;
+    const PRO_CHAR_LIMIT        = 8000;
 
-    const providerConfig = {
-      groq: {
-        label:       'Groq API Key',
-        placeholder: 'gsk_…',
-        link:        'https://console.groq.com/keys',
-        linkText:    'console.groq.com ↗',
-        footer:      'Groq (Llama 3.3)',
-      },
-      gemini: {
-        label:       'Gemini API Key',
-        placeholder: 'AIza…',
-        link:        'https://aistudio.google.com/apikey',
-        linkText:    'aistudio.google.com ↗',
-        footer:      'Gemini 2.0 Flash',
-      },
-    };
-
-    function setProvider(p) {
-      currentProvider = p;
-      const cfg = providerConfig[p];
-
-      // Toggle button styles
-      document.getElementById('btn-groq').classList.toggle('active', p === 'groq');
-      document.getElementById('btn-gemini').classList.toggle('active', p === 'gemini');
-
-      // Update key input
-      document.getElementById('api-key-label').textContent = cfg.label;
-      const input = document.getElementById('api-key');
-      input.placeholder = cfg.placeholder;
-      input.value = '';
-
-      // Update link
-      const link = document.getElementById('api-key-link');
-      link.href = cfg.link;
-      link.textContent = cfg.linkText;
-
-      // Update footer
-      document.getElementById('footer-provider').textContent = cfg.footer;
-
-      hideError();
-    }
+    // ── State ──────────────────────────────────────────────
+    let clerk             = null;
+    let isPro             = false;
+    let proSubscriptionId = null;
+    let selectedPlan      = 'monthly';
+    let currentCharLimit  = FREE_CHAR_LIMIT;
 
     // ── Loading messages ───────────────────────────────────
     const loadingMessages = [
@@ -731,14 +942,20 @@
     ];
 
     // ── Char counter ───────────────────────────────────────
-    const textarea = document.getElementById('message-input');
+    const textarea  = document.getElementById('message-input');
     const charCount = document.getElementById('char-count');
-    textarea.addEventListener('input', () => {
-      const n = textarea.value.length;
-      charCount.textContent = n === 1 ? '1 character' : `${n.toLocaleString()} characters`;
-    });
 
-    // ── Tone → badge class mapping ─────────────────────────
+    function updateCharCounter() {
+      const n      = textarea.value.length;
+      const isOver = n > currentCharLimit;
+      charCount.textContent = `${n.toLocaleString()} / ${currentCharLimit.toLocaleString()} characters`;
+      charCount.classList.toggle('over', isOver);
+      document.getElementById('analyze-btn').disabled = isOver;
+    }
+
+    textarea.addEventListener('input', updateCharCounter);
+
+    // ── Tone → badge class ─────────────────────────────────
     function badgeClass(label) {
       const l = label.toLowerCase();
       if (l.includes('passive'))  return 'badge-passive';
@@ -750,34 +967,21 @@
       return 'badge-unclear';
     }
 
-    // ── SVG icons ──────────────────────────────────────────
-    const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+    const copyIcon  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
     const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
-    // ── Copy helper ────────────────────────────────────────
     function copyText(text, btn) {
       navigator.clipboard.writeText(text).then(() => {
         btn.innerHTML = checkIcon + ' Copied';
         btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = copyIcon + ' Copy rewrite';
-          btn.classList.remove('copied');
-        }, 2000);
+        setTimeout(() => { btn.innerHTML = copyIcon + ' Copy rewrite'; btn.classList.remove('copied'); }, 2000);
       }).catch(() => {
         const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
         document.body.removeChild(ta);
-        btn.innerHTML = checkIcon + ' Copied';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = copyIcon + ' Copy rewrite';
-          btn.classList.remove('copied');
-        }, 2000);
+        btn.innerHTML = checkIcon + ' Copied'; btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = copyIcon + ' Copy rewrite'; btn.classList.remove('copied'); }, 2000);
       });
     }
 
@@ -788,7 +992,7 @@
 
       tones.forEach((tone, i) => {
         const isFine = tone.label.toLowerCase().includes('fine') || tone.label.toLowerCase().includes('no issue');
-        const card = document.createElement('div');
+        const card   = document.createElement('div');
         card.className = 'tone-card' + (isFine ? ' fine' : '');
         card.style.animationDelay = (i * 0.06) + 's';
 
@@ -802,9 +1006,9 @@
               </div>
             </div>`;
         } else {
-          const bc = badgeClass(tone.label);
+          const bc        = badgeClass(tone.label);
           const rewriteId = 'rewrite-' + i;
-          card.innerHTML = `
+          card.innerHTML  = `
             <div class="tone-header">
               <div class="tone-badge ${bc}">
                 <span class="badge-dot"></span>
@@ -822,7 +1026,6 @@
               </div>
             </div>`;
         }
-
         list.appendChild(card);
       });
 
@@ -831,16 +1034,13 @@
 
     function escapeHtml(str) {
       return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
     }
 
     // ── Show / hide helpers ────────────────────────────────
     function showLoading(show) {
-      const el = document.getElementById('loading');
+      const el  = document.getElementById('loading');
       const txt = document.getElementById('loading-text');
       if (show) {
         txt.textContent = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
@@ -855,9 +1055,7 @@
       document.getElementById('error-state').classList.add('visible');
     }
 
-    function hideError() {
-      document.getElementById('error-state').classList.remove('visible');
-    }
+    function hideError() { document.getElementById('error-state').classList.remove('visible'); }
 
     function reset() {
       document.getElementById('results').classList.remove('visible');
@@ -866,96 +1064,9 @@
       textarea.focus();
     }
 
-    // ── System prompt (shared across providers) ────────────
-    const systemPrompt = `You are a communication tone analyst. Your job is to analyze the tone of messages and help people communicate more effectively.
-
-Analyze the given message and identify which tone categories apply. Return ONLY valid JSON — no markdown, no explanation outside the JSON.
-
-Tone categories (use ONLY these exact labels):
-- "Passive-aggressive"
-- "Rude or blunt"
-- "Overly formal"
-- "Unclear or confusing"
-- "Needy or desperate"
-- "Fine — no issues"
-
-Rules:
-1. If the message is genuinely fine, return only "Fine — no issues" with a brief reason why it works.
-2. If there are issues, do NOT include "Fine — no issues" — only return the problem tones.
-3. For each problem tone: provide a 1-sentence reason (specific, not generic) and a complete rewrite of the full message that sounds professional, warm, and clear.
-4. The rewrite should be a full replacement of the original message — not a fragment.
-5. Be precise. Don't flag issues that aren't clearly there.
-
-Response format:
-{
-  "tones": [
-    {
-      "label": "Passive-aggressive",
-      "reason": "One specific sentence explaining exactly why this reads as passive-aggressive.",
-      "rewrite": "The complete rewritten message here."
-    }
-  ]
-}`;
-
-    // ── API: Groq ──────────────────────────────────────────
-    async function callGroq(apiKey, userMessage) {
-      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user',   content: userMessage  },
-          ],
-          max_tokens: 2048,
-          temperature: 0.3,
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        const msg = err?.error?.message || `API error ${res.status}`;
-        if (res.status === 401) throw new Error('Invalid Groq API key. Get a free one at console.groq.com/keys.');
-        if (res.status === 429) throw new Error('Groq rate limit hit. Wait a moment and try again.');
-        throw new Error(`Groq error: ${msg}`);
-      }
-
-      const data = await res.json();
-      return data?.choices?.[0]?.message?.content;
-    }
-
-    // ── API: Gemini ────────────────────────────────────────
-    async function callGemini(apiKey, userMessage) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: systemPrompt }] },
-          contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-          generationConfig: { maxOutputTokens: 2048, temperature: 0.3 },
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        const msg = err?.error?.message || `API error ${res.status}`;
-        if (res.status === 400 && msg.includes('API_KEY')) throw new Error('Invalid Gemini API key. Get a free one at aistudio.google.com/apikey.');
-        if (res.status === 429) throw new Error('Gemini rate limit hit. Wait a moment and try again.');
-        throw new Error(`Gemini error: ${msg}`);
-      }
-
-      const data = await res.json();
-      return data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    }
-
-    // ── Parse JSON response (shared) ───────────────────────
+    // ── Parse JSON response ────────────────────────────────
     function parseResponse(raw) {
-      if (!raw) throw new Error('Empty response from API. Please try again.');
+      if (!raw) throw new Error('Empty response from AI. Please try again.');
       const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
       let parsed;
       try {
@@ -971,24 +1082,22 @@ Response format:
       return parsed.tones;
     }
 
-    // ── Main analyze function ──────────────────────────────
+    // ── Main analyze ───────────────────────────────────────
     async function analyze() {
-      const apiKey = document.getElementById('api-key').value.trim();
       const message = textarea.value.trim();
+      if (!message) { showError('Please paste a message to analyze first.'); return; }
 
-      if (!apiKey) {
-        const cfg = providerConfig[currentProvider];
-        showError(`Please enter your ${cfg.label} in the bar at the top. Get a free one at ${cfg.linkText.replace(' ↗','')}.`);
+      if (message.length > currentCharLimit) {
+        if (!isPro) {
+          showError(`Free tier is limited to ${FREE_CHAR_LIMIT.toLocaleString()} characters. Upgrade to Pro for up to 8,000 characters.`);
+          showPricing();
+        } else {
+          showError(`Message too long (max ${currentCharLimit.toLocaleString()} characters).`);
+        }
         return;
       }
-      if (!message) {
-        showError('Please paste a message to analyze first.');
-        return;
-      }
-      if (message.length > 8000) {
-        showError('Message is too long. Please trim it to under 8,000 characters.');
-        return;
-      }
+
+      const audience = isPro ? (document.getElementById('audience-select')?.value || '') : '';
 
       hideError();
       document.getElementById('results').classList.remove('visible');
@@ -996,17 +1105,29 @@ Response format:
       showLoading(true);
       document.getElementById('analyze-btn').disabled = true;
 
-      const userPrompt = `Analyze this message:\n\n${message}`;
-
       try {
-        let raw;
-        if (currentProvider === 'groq') {
-          raw = await callGroq(apiKey, userPrompt);
-        } else {
-          raw = await callGemini(apiKey, userPrompt);
+        const body = { message };
+        if (audience) body.audience = audience;
+        if (proSubscriptionId) body.subscriptionId = proSubscriptionId;
+
+        const res  = await fetch('/api/analyze', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(body),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          if (res.status === 402) {
+            showError(data.error || 'Upgrade to Pro to analyze longer messages.');
+            showPricing();
+          } else {
+            throw new Error(data.error || 'Analysis failed.');
+          }
+          return;
         }
-        const tones = parseResponse(raw);
-        renderResults(tones);
+
+        renderResults(parseResponse(data.content));
       } catch (err) {
         let msg = err.message || 'An unexpected error occurred. Please try again.';
         if (err instanceof TypeError && err.message.includes('fetch')) {
@@ -1019,10 +1140,247 @@ Response format:
       }
     }
 
-    // ── Ctrl/Cmd + Enter shortcut ──────────────────────────
+    // ── Keyboard shortcut ──────────────────────────────────
     textarea.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') analyze();
     });
+
+    // ── Auth overlay ───────────────────────────────────────
+    function showAuthOverlay() { document.getElementById('auth-overlay').classList.remove('hidden'); }
+    function hideAuthOverlay() { document.getElementById('auth-overlay').classList.add('hidden'); }
+
+    function signIn() {
+      clerk?.openSignIn({
+        afterSignInUrl:  window.location.href,
+        afterSignUpUrl:  window.location.href,
+      });
+    }
+
+    // ── Pricing modal ──────────────────────────────────────
+    function showPricing() { document.getElementById('pricing-modal').classList.remove('hidden'); }
+    function hidePricing()  { document.getElementById('pricing-modal').classList.add('hidden'); }
+
+    function handlePricingBackdrop(e) {
+      if (e.target === e.currentTarget) hidePricing();
+    }
+
+    function selectPlan(plan) {
+      selectedPlan = plan;
+      document.querySelectorAll('.plan-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.plan === plan);
+      });
+    }
+
+    async function handleCheckout() {
+      const btn   = document.getElementById('checkout-btn');
+      const errEl = document.getElementById('pricing-error');
+      btn.disabled = true;
+      btn.textContent = 'Opening checkout…';
+      errEl.textContent = '';
+
+      try {
+        const planId = selectedPlan === 'yearly' ? YEARLY_PLAN_ID : MONTHLY_PLAN_ID;
+        const r = await fetch('/api/create-subscription', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ planId, planType: selectedPlan }),
+        });
+        const { subscriptionId, error: err } = await r.json();
+        if (err) throw new Error(err);
+
+        const rzp = new window.Razorpay({
+          key:             RAZORPAY_KEY,
+          subscription_id: subscriptionId,
+          name:            'ToneFix',
+          description:     `Pro ${selectedPlan === 'yearly' ? 'Yearly' : 'Monthly'}`,
+          prefill:         { email: clerk?.user?.primaryEmailAddress?.emailAddress || '' },
+          theme:           { color: '#d4a857' },
+          handler: async (response) => {
+            const v  = await fetch('/api/verify-payment', {
+              method:  'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body:    JSON.stringify(response),
+            });
+            const vd = await v.json();
+            if (vd.ok) {
+              activatePro(subscriptionId);
+            } else {
+              errEl.textContent = 'Payment verification failed. Contact support@rewritelabs.in';
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              btn.disabled = false;
+              btn.textContent = 'Upgrade to Pro →';
+            },
+          },
+        });
+        rzp.open();
+      } catch (e) {
+        errEl.textContent = e.message;
+        btn.disabled = false;
+        btn.textContent = 'Upgrade to Pro →';
+      }
+    }
+
+    // ── Pro status ─────────────────────────────────────────
+    async function checkPro() {
+      const uid = clerk?.user?.id;
+      if (!uid) { isPro = false; proSubscriptionId = null; return; }
+
+      const stored = localStorage.getItem(`tf_sub_${uid}`);
+      if (!stored) { isPro = false; proSubscriptionId = null; return; }
+
+      try {
+        const r = await fetch('/api/verify-subscription', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ subscriptionId: stored }),
+        });
+        const d = await r.json();
+        if (d.active) {
+          isPro = true;
+          proSubscriptionId = stored;
+        } else {
+          isPro = false;
+          proSubscriptionId = null;
+          localStorage.removeItem(`tf_sub_${uid}`);
+        }
+      } catch {
+        isPro = false;
+        proSubscriptionId = null;
+      }
+    }
+
+    function activatePro(subId) {
+      const uid = clerk?.user?.id;
+      if (uid) localStorage.setItem(`tf_sub_${uid}`, subId);
+      proSubscriptionId = subId;
+      isPro = true;
+      hidePricing();
+      updateUI();
+    }
+
+    // ── UI update ──────────────────────────────────────────
+    function updateUI() {
+      currentCharLimit = isPro ? PRO_CHAR_LIMIT : FREE_CHAR_LIMIT;
+
+      renderHeader();
+
+      // Audience row (Pro only)
+      const audienceRow = document.getElementById('audience-row');
+      if (audienceRow) audienceRow.style.display = isPro ? 'flex' : 'none';
+
+      // Free nudge in compose footer
+      const nudge = document.getElementById('free-nudge');
+      if (nudge) nudge.style.display = isPro ? 'none' : 'inline-flex';
+
+      updateCharCounter();
+    }
+
+    function renderHeader() {
+      const right = document.getElementById('header-right');
+      const u = clerk?.user;
+
+      if (!u) {
+        right.innerHTML = `<span class="free-badge">Free</span>`;
+        return;
+      }
+
+      const initials = (
+        (u.firstName?.[0] || '') + (u.lastName?.[0] || '')
+      ).toUpperCase() || u.primaryEmailAddress?.emailAddress?.[0]?.toUpperCase() || '?';
+
+      const avatarHtml = u.imageUrl
+        ? `<img src="${u.imageUrl}" class="user-avatar" alt="avatar" />`
+        : `<span class="user-initials">${initials}</span>`;
+
+      right.innerHTML = `
+        ${isPro
+          ? `<span class="pro-badge">✦ Pro</span>`
+          : `<button class="upgrade-header-btn" onclick="showPricing()">Upgrade Pro</button>`
+        }
+        <div class="user-btn-wrap">
+          <button class="user-btn" onclick="toggleUserMenu(event)" aria-label="Account menu">
+            ${avatarHtml}
+          </button>
+          <div class="user-menu" id="user-menu">
+            <div class="user-menu-email">${u.primaryEmailAddress?.emailAddress || ''}</div>
+            <button class="user-menu-item" onclick="handleSignOut()">Sign out</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleUserMenu(e) {
+      e.stopPropagation();
+      const menu = document.getElementById('user-menu');
+      if (menu) menu.classList.toggle('visible');
+    }
+
+    document.addEventListener('click', () => {
+      const menu = document.getElementById('user-menu');
+      if (menu) menu.classList.remove('visible');
+    });
+
+    async function handleSignOut() {
+      await clerk?.signOut();
+      isPro = false;
+      proSubscriptionId = null;
+      currentCharLimit = FREE_CHAR_LIMIT;
+      updateUI();
+      showAuthOverlay();
+    }
+
+    // ── Clerk init ─────────────────────────────────────────
+    async function initClerk() {
+      try {
+        await window.Clerk.load({ publishableKey: CLERK_PUBLISHABLE_KEY });
+        clerk = window.Clerk;
+
+        if (clerk.user) {
+          await checkPro();
+          updateUI();
+          hideAuthOverlay();
+        } else {
+          updateUI();
+          showAuthOverlay();
+        }
+
+        // Listen for auth state changes (sign-in / sign-out via Clerk modal)
+        clerk.addListener(({ user }) => {
+          if (user) {
+            checkPro().then(() => {
+              updateUI();
+              hideAuthOverlay();
+            });
+          } else {
+            isPro = false;
+            proSubscriptionId = null;
+            updateUI();
+            showAuthOverlay();
+          }
+        });
+      } catch (err) {
+        console.error('Clerk init failed:', err);
+        // If Clerk fails, still show the app (graceful degradation)
+        hideAuthOverlay();
+      } finally {
+        document.getElementById('page-loading').classList.add('hidden');
+      }
+    }
+
+    // Poll until ClerkJS CDN script is ready, then init
+    (function waitForClerk() {
+      if (typeof window.Clerk !== 'undefined') {
+        initClerk();
+      } else {
+        setTimeout(waitForClerk, 80);
+      }
+    })();
+
+    // ── Init ───────────────────────────────────────────────
+    updateCharCounter();
   </script>
 </body>
 </html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal — ToneFix by Rewrite Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0c0c0e;
+      --surface: #141418;
+      --border:  #26262e;
+      --text-1:  #eeeef2;
+      --text-2:  #9898a8;
+      --text-3:  #5a5a6a;
+      --accent:  #d4a857;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex; align-items: center; gap: 16px;
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(12,12,14,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .back-link {
+      font-size: 0.8rem; color: var(--text-3);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .logo-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--text-1);
+    }
+
+    .logo-dot {
+      width: 6px; height: 6px;
+      background: var(--accent); border-radius: 50%;
+      display: inline-block; margin-left: 2px; margin-bottom: 2px;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .legal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 600; letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .legal-meta {
+      font-size: 0.8rem; color: var(--text-3);
+      margin-bottom: 3rem;
+    }
+
+    .legal-meta span { color: var(--accent); }
+
+    .section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--text-1); margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--text-1); margin: 1.25rem 0 0.4rem;
+    }
+
+    p {
+      font-size: 0.9rem; color: var(--text-2);
+      margin-bottom: 0.75rem;
+    }
+
+    ul {
+      padding-left: 1.2rem; margin-bottom: 0.75rem;
+    }
+
+    ul li {
+      font-size: 0.9rem; color: var(--text-2);
+      margin-bottom: 0.35rem;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .contact-box p { margin-bottom: 0.4rem; }
+    .contact-box p:last-child { margin-bottom: 0; }
+
+    footer {
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.75rem; color: var(--text-3);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    footer span { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="/">← Back to ToneFix</a>
+  <div style="margin-left:auto;display:flex;align-items:baseline;gap:5px">
+    <span class="logo-word">ToneFix</span><span class="logo-dot"></span>
+  </div>
+</header>
+
+<main>
+  <h1 class="legal-title">Legal</h1>
+  <p class="legal-meta">
+    Operated by <span>Rewrite Labs</span> · Last updated May 2025
+  </p>
+
+  <!-- PRIVACY POLICY -->
+  <div class="section">
+    <h2 class="section-title">Privacy Policy</h2>
+
+    <p>ToneFix is operated by Rewrite Labs. We take your privacy seriously.</p>
+
+    <h3 class="section-sub">What we collect</h3>
+    <ul>
+      <li><strong>Account information</strong> — name and email via Clerk (Google or email sign-in).</li>
+      <li><strong>Subscription status</strong> — stored as a Razorpay subscription ID in your browser's local storage. We do not store payment card details.</li>
+      <li><strong>Usage analytics</strong> — anonymous page-view data via Microsoft Clarity (no message content is captured).</li>
+    </ul>
+
+    <h3 class="section-sub">What we do NOT collect</h3>
+    <ul>
+      <li>Your messages are sent to our server only for real-time AI analysis and are <strong>never stored or logged</strong> on our systems.</li>
+      <li>We do not sell or share your personal data with third parties for marketing purposes.</li>
+    </ul>
+
+    <h3 class="section-sub">Third-party services</h3>
+    <ul>
+      <li><strong>Clerk</strong> — authentication. Governed by <a href="https://clerk.com/privacy" target="_blank" rel="noopener">Clerk's Privacy Policy</a>.</li>
+      <li><strong>Razorpay</strong> — payment processing. Governed by <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener">Razorpay's Privacy Policy</a>.</li>
+      <li><strong>Groq</strong> — AI inference. Messages are processed transiently and not retained per Groq's terms.</li>
+    </ul>
+
+    <h3 class="section-sub">Data deletion</h3>
+    <p>To delete your account and associated data, email <a href="mailto:support@rewritelabs.in">support@rewritelabs.in</a> and we will process your request within 7 business days.</p>
+  </div>
+
+  <!-- TERMS & CONDITIONS -->
+  <div class="section">
+    <h2 class="section-title">Terms &amp; Conditions</h2>
+
+    <p>By using ToneFix, you agree to these terms. ToneFix is provided by Rewrite Labs.</p>
+
+    <h3 class="section-sub">Use of service</h3>
+    <ul>
+      <li>ToneFix is for personal and professional communication improvement.</li>
+      <li>You must not use ToneFix to process confidential data belonging to others without their consent.</li>
+      <li>You must not attempt to abuse, reverse-engineer, or overload the service.</li>
+    </ul>
+
+    <h3 class="section-sub">Pro subscription</h3>
+    <ul>
+      <li>Pro plans are billed monthly (₹199/month) or yearly (₹1,499/year) via Razorpay.</li>
+      <li>Subscriptions auto-renew. You may cancel at any time from your Razorpay account; your Pro access continues until the end of the current billing period.</li>
+      <li><strong>Price lock for existing subscribers:</strong> If you subscribe at the current price, you will keep that price for as long as your subscription remains active and uninterrupted, even if we raise prices for new subscribers in the future. This is our commitment to early supporters.</li>
+    </ul>
+
+    <h3 class="section-sub">AI-generated content</h3>
+    <p>ToneFix uses AI to suggest tone improvements and rewrites. These are suggestions only — always review AI output before sending any message. Rewrite Labs is not responsible for outcomes resulting from acting on AI suggestions.</p>
+
+    <h3 class="section-sub">Availability</h3>
+    <p>We strive for high availability but do not guarantee uninterrupted service. We are not liable for any losses arising from downtime.</p>
+
+    <h3 class="section-sub">Changes</h3>
+    <p>We may update these terms. Continued use of ToneFix after changes constitutes acceptance. Material changes will be communicated via email.</p>
+  </div>
+
+  <!-- REFUND POLICY -->
+  <div class="section">
+    <h2 class="section-title">Refund Policy</h2>
+
+    <p>We offer a <strong>7-day money-back guarantee</strong> on all ToneFix Pro subscriptions.</p>
+
+    <h3 class="section-sub">How to request a refund</h3>
+    <p>Email <a href="mailto:support@rewritelabs.in">support@rewritelabs.in</a> within 7 days of your purchase with the subject line "Refund Request — ToneFix". Include the email address used to sign up and your Razorpay payment ID if available.</p>
+    <p>We will process your refund within 5–7 business days. The refund will be credited to your original payment method.</p>
+
+    <h3 class="section-sub">After 7 days</h3>
+    <p>Refunds are not available after the 7-day window. You may cancel your subscription at any time to stop future charges, but past payments are non-refundable after this period.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <h2 class="section-title">Contact</h2>
+    <p>For any questions about these policies, subscription issues, or data requests:</p>
+    <div class="contact-box">
+      <p><strong>Rewrite Labs</strong></p>
+      <p>Email: <a href="mailto:support@rewritelabs.in">support@rewritelabs.in</a></p>
+      <p>WhatsApp: <a href="https://wa.me/918356047757" target="_blank" rel="noopener">+91 83560 47757</a></p>
+      <p>Response time: within 2 business days</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>ToneFix</span> by Rewrite Labs · <a href="/">Back to app</a>
+</footer>
+
+</body>
+</html>

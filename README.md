@@ -1,126 +1,124 @@
 # ToneFix
 
-> **Know how your words land.**
+**Fix your tone before you hit send.**
 
-ToneFix is a zero-install, single-file web app that reads your message the way a stranger would — and tells you exactly what tone is landing wrong, and how to fix it.
-
-Paste an email, Slack message, WhatsApp text, or any written communication. ToneFix sends it to the Claude API, identifies problem tones, and gives you a complete rewrite for each one.
-
----
-
-## Quick Start
-
-No installation, no npm, no build step needed.
-
-1. Open `index.html` in any modern browser (Chrome, Firefox, Edge, Safari).
-2. Enter your [Anthropic API key](https://console.anthropic.com/settings/keys) in the bar at the top.
-3. Paste your message and click **Analyze tone →** (or press `Ctrl+Enter` / `Cmd+Enter`).
-
-That's it.
+[![Live App](https://img.shields.io/badge/Live%20App-tonefix--rwl.vercel.app-39FF14?style=for-the-badge)](https://tonefix-rwl.vercel.app)
+[![Free to Start](https://img.shields.io/badge/Free%20Tier-1%2C000%20chars-39FF14?style=for-the-badge)]()
+[![Pro](https://img.shields.io/badge/Pro-₹199%2Fmo-gold?style=for-the-badge)]()
+[![Part of Rewrite Labs](https://img.shields.io/badge/Part%20of-Rewrite%20Labs-0a0a0a?style=for-the-badge)](https://rewritelabs.vercel.app)
 
 ---
 
-## How to Get an API Key
+## What Is ToneFix?
 
-1. Go to [console.anthropic.com](https://console.anthropic.com) and create a free account.
-2. Navigate to **Settings → API Keys**.
-3. Click **Create Key**, copy it, and paste it into ToneFix.
+ToneFix is an AI tone checker for engineers and professionals. Paste any email, Slack message, or text — it detects what's landing wrong and rewrites it for you.
 
-Your key is only used in that browser tab and is never sent anywhere except directly to Anthropic's API.
+A tone-deaf message costs you relationships, offers, and opportunities you never even find out you lost. ToneFix fixes that before you send.
 
----
-
-## Tone Categories Detected
-
-| Badge | What it means |
-|---|---|
-| 🟠 **Passive-aggressive** | Backhanded phrasing, sarcasm, or implied blame |
-| 🔴 **Rude or blunt** | Abrasive, dismissive, or harsh wording |
-| 🔵 **Overly formal** | Stiff, bureaucratic language that creates distance |
-| 🟡 **Unclear or confusing** | Ambiguous wording that could be misread |
-| 🟣 **Needy or desperate** | Over-apologetic, anxious, or people-pleasing framing |
-| 🟢 **Fine — no issues** | Your message reads as professional, warm, and clear |
-
-For each problem tone, ToneFix explains *exactly* why it reads that way and gives you a full replacement rewrite you can copy with one click.
+🌐 **[tonefix-rwl.vercel.app](https://tonefix-rwl.vercel.app)**
 
 ---
 
 ## How It Works
 
-ToneFix calls the [Anthropic Messages API](https://docs.anthropic.com/en/api/messages) directly from the browser using the `anthropic-dangerous-direct-browser-access` header (intended for personal/local tools like this). The model used is **claude-sonnet-4-20250514**.
-
-The system prompt instructs Claude to return structured JSON containing tone labels, one-sentence reasons, and full rewrites. ToneFix then renders those results as cards.
-
-No server. No backend. No database. Nothing is stored.
+1. Sign in with Google or email (via Clerk)
+2. Paste your message
+3. ToneFix detects the tone problem and explains exactly why it reads that way
+4. Get a full rewrite — or on Pro, get rewrites tailored to your specific audience
 
 ---
 
-## Privacy
+## Tone Problems Detected
 
-- Your API key stays in the browser tab only — it is never stored in `localStorage`, cookies, or sent anywhere except Anthropic's API endpoint.
-- Your messages are sent to Anthropic for analysis per their [usage policy](https://www.anthropic.com/legal/usage-policy), but ToneFix itself does not log, store, or transmit your text to any other party.
-- Closing or refreshing the tab clears everything.
+| Tone | What It Means |
+|---|---|
+| 🟠 Passive-aggressive | Backhanded phrasing, implied blame, sarcasm |
+| 🔴 Rude or blunt | Abrasive, dismissive, or unnecessarily harsh |
+| 🔵 Overly formal | Stiff bureaucratic language that creates distance |
+| 🟡 Unclear or confusing | Ambiguous wording that could be misread badly |
+| 🟣 Needy or desperate | Over-apologetic, anxious, or people-pleasing |
+| 🟢 No issues | Professional, warm, and clear — nothing to fix |
+
+---
+
+## Free vs Pro
+
+| Feature | Free | Pro |
+|---|---|---|
+| Character limit | 1,000 | 8,000 |
+| Tone detection | ✅ | ✅ |
+| Full rewrite | ✅ | ✅ |
+| Audience-aware rewrites | ❌ | ✅ |
+| Audience options | — | Boss · Client · HR · Colleague · Friend |
+| Price | ₹0 | ₹199/month · ₹1,499/year |
+
+Pro is billed via Razorpay. Cancel anytime. 7-day money-back guarantee.
+
+---
+
+## Audience-Aware Rewrites (Pro)
+
+On Pro, you select who you're writing to — and ToneFix tailors the rewrite accordingly:
+
+- **My manager / boss** — Concise, accountable, direct
+- **A client / customer** — Warm, professional, solution-focused
+- **A colleague / teammate** — Casual, collaborative, human
+- **HR / recruiter** — Confident, clear, appropriate formality
+- **A friend / peer** — Direct and honest without the corporate filter
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
+| Layer | Tech |
 |---|---|
-| UI | Vanilla HTML + CSS + JavaScript (ES2020+) |
-| Fonts | [Cormorant Garamond](https://fonts.google.com/specimen/Cormorant+Garamond) + [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) via Google Fonts |
-| AI | [Anthropic Claude API](https://docs.anthropic.com) — `claude-sonnet-4-20250514` |
-| Build | None — zero dependencies, zero tooling |
+| Frontend | Vanilla HTML · CSS · JavaScript |
+| Auth | Clerk (Google + email sign-in) |
+| Payments | Razorpay (monthly + yearly subscriptions) |
+| AI Inference | Groq API |
+| Deployment | Vercel (serverless functions) |
+
+### API Routes (Vercel Serverless)
+
+| Route | Purpose |
+|---|---|
+| `POST /api/analyze` | Tone analysis + rewrite generation |
+| `POST /api/create-subscription` | Creates a Razorpay subscription |
+| `POST /api/verify-payment` | Verifies HMAC signature post-payment |
+| `POST /api/verify-subscription` | Checks active subscription status |
 
 ---
 
-## Do I Need a `dist` Folder or npm?
+## Privacy
 
-**No.** ToneFix is a single self-contained HTML file with no dependencies, no bundler, and no build process. `index.html` is already the final production artifact.
-
-- ✅ Open directly in a browser: `file:///C:/Users/adhit/tonefix/index.html`
-- ✅ Serve with any static host (GitHub Pages, Netlify, Vercel, Cloudflare Pages)
-- ✅ Drop it on any web server as-is
-
----
-
-## Deployment Options
-
-### Local (already works)
-Just open `index.html` in your browser.
-
-### GitHub Pages
-```bash
-git init
-git add index.html README.md
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/tonefix.git
-git push -u origin main
-# Then enable Pages in repo Settings → Pages → Deploy from branch: main
-```
-
-### Netlify / Vercel (drag-and-drop)
-Drag the `tonefix` folder onto [netlify.com/drop](https://netlify.com/drop) or [vercel.com/new](https://vercel.com/new). Done.
-
-### Simple local server (optional, for testing)
-```bash
-# Python 3
-python -m http.server 8080
-# Then open http://localhost:8080
-```
+- Messages are processed in real-time and **never stored or logged**
+- Auth is handled by Clerk — only your name and email are stored
+- Payment data is handled by Razorpay — we never touch your card details
+- Subscription status is stored as a Razorpay subscription ID in your browser's localStorage
 
 ---
 
-## Browser Compatibility
+## Part of Rewrite Labs
 
-Works in all evergreen browsers that support the Fetch API and `navigator.clipboard`:
+ToneFix is one of six AI tools built under [Rewrite Labs](https://rewritelabs.vercel.app) — an AI tool studio for engineers and builders.
 
-- Chrome / Edge 80+
-- Firefox 75+
-- Safari 13.1+
+| Tool | What It Solves |
+|---|---|
+| [Unclause](https://unclause-rwl.vercel.app) | Understand contracts before you sign |
+| [FocusVision](https://focusvision-rwl.vercel.app) | Real-time distraction detection |
+| [Lectura.AI](https://lectura-rwl.vercel.app) | AI lecture transcription + study tools |
+| [DataPulse](https://datapulse-rwl.vercel.app) | Upload data, get instant insights |
+| [Rewrite OS](https://rewriteos-rwl.vercel.app) | Personal OS for engineers |
 
 ---
 
-## License
+## The Builder
 
-MIT — do whatever you want with it.
+**M. Adhitya** — CS Engineer · AI Researcher · Published Author · Solo Founder
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-M.%20Adhitya-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/loveadhitya/)
+[![Rewrite Labs](https://img.shields.io/badge/Studio-rewritelabs.vercel.app-39FF14?style=flat-square)](https://rewritelabs.vercel.app)
+
+---
+
+© 2026 Rewrite Labs · All rights reserved.

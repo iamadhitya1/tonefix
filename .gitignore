@@ -13,3 +13,7 @@ desktop.ini
 *.log
 
 .vercel
+.env
+.env.local
+*.local
+.claude/
