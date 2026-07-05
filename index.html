@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ToneFix — Know how your words land</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -1224,32 +1225,48 @@
     }
 
     // ── Pro status ─────────────────────────────────────────
+    async function checkBundlePro(email) {
+      const CACHE_KEY = 'rwl_pro', TTL = 5 * 60 * 1000;
+      try {
+        const c = JSON.parse(sessionStorage.getItem(CACHE_KEY));
+        if (c?.email === email && Date.now() - c.ts < TTL) return c.isPro;
+      } catch {}
+      try {
+        const r = await fetch(`https://rewritelabs.vercel.app/api/check-sub?email=${encodeURIComponent(email)}`);
+        const d = await r.json();
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({ email, isPro: !!d.isPro, ts: Date.now() }));
+        return !!d.isPro;
+      } catch { return false; }
+    }
+
     async function checkPro() {
-      const uid = clerk?.user?.id;
+      const uid   = clerk?.user?.id;
+      const email = clerk?.user?.primaryEmailAddress?.emailAddress;
       if (!uid) { isPro = false; proSubscriptionId = null; return; }
 
+      // 1 — individual app subscription
       const stored = localStorage.getItem(`tf_sub_${uid}`);
-      if (!stored) { isPro = false; proSubscriptionId = null; return; }
-
-      try {
-        const r = await fetch('/api/verify-subscription', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ subscriptionId: stored }),
-        });
-        const d = await r.json();
-        if (d.active) {
-          isPro = true;
-          proSubscriptionId = stored;
-        } else {
-          isPro = false;
-          proSubscriptionId = null;
-          localStorage.removeItem(`tf_sub_${uid}`);
-        }
-      } catch {
-        isPro = false;
-        proSubscriptionId = null;
+      if (stored) {
+        try {
+          const r = await fetch('/api/verify-subscription', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ subscriptionId: stored }),
+          });
+          const d = await r.json();
+          if (d.active) { isPro = true; proSubscriptionId = stored; return; }
+          else { localStorage.removeItem(`tf_sub_${uid}`); }
+        } catch {}
       }
+
+      // 2 — Rewrite Labs bundle
+      if (email) {
+        const bundlePro = await checkBundlePro(email);
+        if (bundlePro) { isPro = true; proSubscriptionId = null; return; }
+      }
+
+      isPro = false;
+      proSubscriptionId = null;
     }
 
     function activatePro(subId) {
