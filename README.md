@@ -116,7 +116,7 @@ ToneFix is one of six AI tools built under [Rewrite Labs](https://rewritelabs.ve
 
 **M. Adhitya** — CS Engineer · AI Researcher · Published Author · Builder
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-M.%20Adhitya-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/loveadhitya/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-M.%20Adhitya-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/iamadhitya/)
 [![Rewrite Labs](https://img.shields.io/badge/Studio-rewritelabs.vercel.app-39FF14?style=flat-square)](https://rewritelabs.vercel.app)
 
 ---
