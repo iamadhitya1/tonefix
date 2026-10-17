@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
   "dependencies": {
     "@vercel/analytics": "^2.0.1"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.11"
   }
 }
